@@ -110,8 +110,8 @@ function makeFlexible(Component, isWidthFlexible, isHeightFlexible) {
     constructor(props) {
       super(props);
       this.state = {
-        height: 0,
-        width: 0
+        height: null,
+        width: null
       };
     }
 
@@ -152,7 +152,8 @@ function makeFlexible(Component, isWidthFlexible, isHeightFlexible) {
       const {height, width} = this.state;
       const props = {
         ...this.props,
-        animation: height === 0 && width === 0 ? null : this.props.animation
+        animation:
+          height === null && width === null ? null : this.props.animation
       };
 
       const updatedDimensions = {
@@ -165,7 +166,9 @@ function makeFlexible(Component, isWidthFlexible, isHeightFlexible) {
           ref={ref => (this[CONTAINER_REF] = ref)}
           style={{width: '100%', height: '100%'}}
         >
-          <Component {...updatedDimensions} {...props} />
+          {this.state.height === null || this.state.width === null ? null : (
+            <Component {...updatedDimensions} {...props} />
+          )}
         </div>
       );
     }
