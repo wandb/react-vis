@@ -22,7 +22,7 @@ import React from 'react';
 
 import ShowcaseButton from '../showcase-components/showcase-button';
 import {
-  XYPlot,
+  FlexibleXYPlot,
   XAxis,
   YAxis,
   VerticalGridLines,
@@ -83,7 +83,6 @@ export default class Example extends React.Component {
       value
     } = this.state;
     const lineSeriesProps = {
-      animation: true,
       className: 'mark-series-example',
       sizeRange: [5, 15],
       color: colorType === 'typeA' ? '#0D676C' : '#B52F93',
@@ -128,21 +127,24 @@ export default class Example extends React.Component {
             buttonContent={hideComponent ? 'SHOW' : 'HIDE'}
           />
         </div>
-        {!hideComponent && (
-          <XYPlot
-            onMouseLeave={() => this.setState({value: false})}
-            width={600}
-            height={300}
-          >
-            <VerticalGridLines />
-            <HorizontalGridLines />
-            <XAxis />
-            <YAxis />
-            {mode === 'canvas' && <CanvasComponent {...lineSeriesProps} />}
-            {mode === 'svg' && <SVGComponent {...lineSeriesProps} />}
-            {value && <Crosshair values={[value]} />}
-          </XYPlot>
-        )}
+        <div
+          style={{
+            width: 600,
+            height: 300
+          }}
+        >
+          {!hideComponent && (
+            <FlexibleXYPlot onMouseLeave={() => this.setState({value: false})}>
+              <VerticalGridLines />
+              <HorizontalGridLines />
+              <XAxis />
+              <YAxis />
+              {mode === 'canvas' && <CanvasComponent {...lineSeriesProps} />}
+              {mode === 'svg' && <SVGComponent {...lineSeriesProps} />}
+              {value && <Crosshair values={[value]} />}
+            </FlexibleXYPlot>
+          )}
+        </div>
       </div>
     );
   }
