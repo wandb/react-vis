@@ -53,15 +53,15 @@ export default class Example extends React.Component {
           <VerticalGridLines />
           <XAxis />
           <YAxis />
-          <ChartLabel 
+          <ChartLabel
             text="X Axis"
             className="alt-x-label"
             includeMargin={false}
             xPercent={0.025}
             yPercent={1.01}
-            />
+          />
 
-          <ChartLabel 
+          <ChartLabel
             text="Y Axis"
             className="alt-y-label"
             includeMargin={false}
@@ -71,7 +71,7 @@ export default class Example extends React.Component {
               transform: 'rotate(-90)',
               textAnchor: 'end'
             }}
-            />
+          />
           <Line
             className="first-series"
             data={[{x: 1, y: 3}, {x: 2, y: 5}, {x: 3, y: 15}, {x: 4, y: 12}]}
@@ -86,10 +86,8 @@ export default class Example extends React.Component {
           <Line
             className="fourth-series"
             curve={curveCatmullRom.alpha(0.5)}
-            style={{
-              // note that this can not be translated to the canvas version
-              strokeDasharray: '2 2'
-            }}
+            // note that this can not be translated to the canvas version
+            strokeDasharray={useCanvas ? [2, 2] : '2 2'}
             data={[{x: 1, y: 7}, {x: 2, y: 11}, {x: 3, y: 9}, {x: 4, y: 2}]}
           />
         </XYPlot>
