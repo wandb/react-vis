@@ -153,6 +153,18 @@ var CanvasWrapper = function (_Component) {
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(oldProps) {
+      var _props = this.props,
+          pixelRatio = _props.pixelRatio,
+          width = _props.width,
+          height = _props.height;
+
+      var ctx = this.canvas.getContext('2d');
+      if (!ctx) {
+        return;
+      }
+      if (oldProps.height !== height || oldProps.width !== width) {
+        ctx.scale(pixelRatio, pixelRatio);
+      }
       this.drawChildren(oldProps, this.props, this.canvas.getContext('2d'));
     }
 
@@ -199,14 +211,14 @@ var CanvasWrapper = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var _props = this.props,
-          innerHeight = _props.innerHeight,
-          innerWidth = _props.innerWidth,
-          marginBottom = _props.marginBottom,
-          marginLeft = _props.marginLeft,
-          marginRight = _props.marginRight,
-          marginTop = _props.marginTop,
-          pixelRatio = _props.pixelRatio;
+      var _props2 = this.props,
+          innerHeight = _props2.innerHeight,
+          innerWidth = _props2.innerWidth,
+          marginBottom = _props2.marginBottom,
+          marginLeft = _props2.marginLeft,
+          marginRight = _props2.marginRight,
+          marginTop = _props2.marginTop,
+          pixelRatio = _props2.pixelRatio;
 
 
       var height = innerHeight + marginTop + marginBottom;

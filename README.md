@@ -1,5 +1,22 @@
 > This library is deprecated. Please see `DEPRECATED.md`.
 
+
+Wandb fork
+-----------
+
+This is a wandb fork of react-vis as of now, to patch issues with canvas mode.
+
+To deploy
+=========
+bump version 
+
+```bash
+yarn build
+git add dist
+git commit
+git push
+```
+
 <p align="right">
   <a href="https://npmjs.org/package/react-vis">
     <img src="https://img.shields.io/npm/v/react-vis.svg?style=flat-square" alt="version" />

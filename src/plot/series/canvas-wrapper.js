@@ -132,6 +132,14 @@ class CanvasWrapper extends Component {
   }
 
   componentDidUpdate(oldProps) {
+    const {pixelRatio, width, height} = this.props;
+    const ctx = this.canvas.getContext('2d');
+    if (!ctx) {
+      return;
+    }
+    if (oldProps.height !== height || oldProps.width !== width) {
+      ctx.scale(pixelRatio, pixelRatio);
+    }
     this.drawChildren(oldProps, this.props, this.canvas.getContext('2d'));
   }
 
