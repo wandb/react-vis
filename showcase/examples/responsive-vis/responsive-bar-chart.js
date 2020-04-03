@@ -71,7 +71,7 @@ export default class ResponsiveBarChart extends React.Component {
 
     return (
       <div className="responsive-bar-chart">
-        <XYPlot
+        <FlexibleXYPlot
           yType="ordinal"
           xType="linear"
           margin={margin}
@@ -89,7 +89,7 @@ export default class ResponsiveBarChart extends React.Component {
             />
           )}
           {featuresToRender.area && (
-            <AreaSeries
+            <CanvasLineSeries
               colorType="literal"
               color="#12939A"
               yType="linear"
@@ -99,7 +99,7 @@ export default class ResponsiveBarChart extends React.Component {
               data={updatedData}
             />
           )}
-        </XYPlot>
+        </FlexibleXYPlot>
       </div>
     );
   }

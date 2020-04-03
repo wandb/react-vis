@@ -24,8 +24,8 @@ import {
   XAxis,
   YAxis,
   HorizontalGridLines,
-  XYPlot,
-  LineSeries,
+  FlexibleXYPlot,
+  LineSeriesCanvas,
   Highlight
 } from 'index';
 import {generateSeededRandom} from '../showcase-utils';
@@ -77,9 +77,14 @@ export default class ZoomableChartExample extends React.Component {
     const {series, lastDrawLocation} = this.state;
     return (
       <div>
-        <div>
-          <XYPlot
-            animation
+        <div
+          style={{
+            width: 500,
+            height: 300
+          }}
+        >
+          <FlexibleXYPlot
+            margin={{left: 20, top: 30, right: 40, bottom: 50}}
             xDomain={
               lastDrawLocation && [
                 lastDrawLocation.left,
@@ -92,8 +97,6 @@ export default class ZoomableChartExample extends React.Component {
                 lastDrawLocation.top
               ]
             }
-            width={500}
-            height={300}
           >
             <HorizontalGridLines />
 
@@ -101,7 +104,7 @@ export default class ZoomableChartExample extends React.Component {
             <XAxis />
 
             {series.map(entry => (
-              <LineSeries key={entry.title} data={entry.data} />
+              <LineSeriesCanvas key={entry.title} data={entry.data} />
             ))}
 
             <Highlight
@@ -117,7 +120,7 @@ export default class ZoomableChartExample extends React.Component {
                 });
               }}
             />
-          </XYPlot>
+          </FlexibleXYPlot>
         </div>
 
         <button
