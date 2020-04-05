@@ -78,14 +78,22 @@ var LineSeriesCanvas = function (_AbstractSeries) {
     value: function renderLayer(props, ctx) {
       var curve = props.curve,
           data = props.data,
+          innerWidth = props.innerWidth,
+          innerHeight = props.innerHeight,
           marginLeft = props.marginLeft,
           marginTop = props.marginTop,
+          marginBottom = props.marginBottom,
+          marginRight = props.marginRight,
           strokeWidth = props.strokeWidth,
           strokeDasharray = props.strokeDasharray;
 
       if (!data || data.length === 0) {
         return;
       }
+
+      var height = innerHeight + marginTop + marginBottom;
+      var width = innerWidth + marginLeft + marginRight;
+      var pixelRatio = window.devicePixelRatio;
 
       var x = (0, _scalesUtils.getAttributeFunctor)(props, 'x');
       var y = (0, _scalesUtils.getAttributeFunctor)(props, 'y');
@@ -126,42 +134,20 @@ var LineSeriesCanvas = function (_AbstractSeries) {
       //
       // Add a border fade that is cached(drawing gradients every frame
       // is too expensive)
-      if (this.cachedBorders) {
-        var cache = this.cachedBorders;
-        if (cache.height === height && cache.marginTop === marginTop && cache.marginBottom === marginBottom && cache.marginLeft === marginLeft && cache.marginRight === marginRight) {
-          ctx.drawImage(cache.canvas, 0, 0);
-        }
-      } else {
-        var borderCanvas = document.createElement('canvas');
-        borderCanvas.width = width * pixelRatio;
-        borderCanvas.height = height * pixelRatio;
-        ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-        var borderCtx = borderCanvas.getContext('2d');
+      // const ctx = borderCanvas.getContext('2d');
 
-        // left
-        // ctx.createLinearGradient(0, 0, marginLeft, 0);
-        borderCtx.fillStyle = 'white';
-        borderCtx.fillRect(0, 0, marginLeft, height);
+      // left
+      // borderCtx.fillStyle = 'rgba(0,0,0,0)';
+      ctx.clearRect(0, 0, marginLeft, height);
 
-        // right
-        borderCtx.fillRect(width, 0, -marginRight, height);
+      // right
+      ctx.clearRect(width, 0, -marginRight, height);
 
-        // top
-        borderCtx.fillRect(0, 0, width, marginTop);
+      // top
+      ctx.clearRect(0, 0, width, marginTop);
 
-        // bottom
-        borderCtx.fillStyle = 'white';
-        borderCtx.fillRect(0, height, width, -marginBottom);
-        ctx.drawImage(borderCanvas, 0, 0);
-        this.cachedBorders = {
-          height: height,
-          marginTop: marginTop,
-          marginBottom: marginBottom,
-          marginLeft: marginLeft,
-          marginRight: marginRight,
-          canvas: borderCanvas
-        };
-      }
+      // bottom
+      ctx.clearRect(0, height, width, -marginBottom);
     }
   }, {
     key: 'requiresSVG',

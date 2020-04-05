@@ -79,7 +79,7 @@ function drawLayers(ctx, props, layers, drawIteration) {
     );
   });
 
-  / NOTE: Re-enable or change layering in canvas/svg hybrids
+  // NOTE: Re-enable or change layering in canvas/svg hybrids
   // We have to perform clipping gradients/borders
   // In the canvas renderer because the canvas layer is always on top of the svg.
   // In the future the renderer could be change to allow mixed layering between svg
