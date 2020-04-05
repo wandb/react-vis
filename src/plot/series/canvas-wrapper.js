@@ -34,7 +34,7 @@ const MAX_DRAWS = 30;
  * @param {Number} width - width of the canvas
  * @param {Array} layers - the layer objects to render
  */
-function engageDrawLoop(ctx, height, width, layers) {
+function engageDrawLoop(ctx, props, layers) {
   let drawIteration = 0;
   // using setInterval because request animation frame goes too fast
   const drawCycle = setInterval(() => {
@@ -42,7 +42,7 @@ function engageDrawLoop(ctx, height, width, layers) {
       clearInterval(drawCycle);
       return;
     }
-    drawLayers(ctx, height, width, layers, drawIteration);
+    drawLayers(ctx, props, layers, drawIteration);
     if (drawIteration > MAX_DRAWS) {
       clearInterval(drawCycle);
     }
@@ -58,7 +58,9 @@ function engageDrawLoop(ctx, height, width, layers) {
  * @param {Array} layers - the layer objects to render
  * @param {Number} drawIteration - width of the canvas
  */
-function drawLayers(ctx, height, width, layers, drawIteration) {
+function drawLayers(ctx, props, layers, drawIteration) {
+  const {width, height, pixelRatio} = props;
+  ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
   ctx.clearRect(0, 0, width, height);
   layers.forEach(layer => {
     const {interpolator, newProps, animation} = layer;
@@ -122,23 +124,22 @@ class CanvasWrapper extends Component {
     if (!ctx) {
       return;
     }
-    const {pixelRatio} = this.props;
     if (!ctx) {
       return;
     }
-    ctx.scale(pixelRatio, pixelRatio);
+    // ctx.scale(pixelRatio, pixelRatio);
 
     this.drawChildren(null, this.props, ctx);
   }
 
   componentDidUpdate(oldProps) {
-    const {pixelRatio, width, height} = this.props;
+    const {width, height} = this.props;
     const ctx = this.canvas.getContext('2d');
     if (!ctx) {
       return;
     }
     if (oldProps.height !== height || oldProps.width !== width) {
-      ctx.scale(pixelRatio, pixelRatio);
+      // ctx.scale(pixelRatio, pixelRatio);
     }
     this.drawChildren(oldProps, this.props, this.canvas.getContext('2d'));
   }
@@ -168,17 +169,24 @@ class CanvasWrapper extends Component {
 
     const height = innerHeight + marginTop + marginBottom;
     const width = innerWidth + marginLeft + marginRight;
+
+    const renderProps = {
+      ...newProps,
+      height,
+      width
+    };
+
     const layers = buildLayers(
       newProps.children,
       oldProps ? oldProps.children : []
     );
     // if we don't need to be animating, dont! cut short
     if (!childrenShouldAnimate) {
-      drawLayers(ctx, height, width, layers);
+      drawLayers(ctx, renderProps, layers);
       return;
     }
 
-    engageDrawLoop(ctx, height, width, layers);
+    engageDrawLoop(ctx, renderProps, layers);
   }
 
   render() {

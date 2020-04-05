@@ -25,6 +25,7 @@ import {
   YAxis,
   HorizontalGridLines,
   FlexibleXYPlot,
+  XYPlot,
   LineSeriesCanvas,
   Highlight
 } from 'index';
@@ -64,15 +65,16 @@ export default class ZoomableChartExample extends React.Component {
         data: getRandomSeriesData(totalValues),
         disabled: false,
         title: 'Apples'
-      },
-      {
-        data: getRandomSeriesData(totalValues),
-        disabled: false,
-        title: 'Bananas'
       }
+      // {
+      //   data: getRandomSeriesData(totalValues),
+      //   disabled: false,
+      //   title: 'Bananas'
+      // }
     ]
   };
 
+  // Notes
   render() {
     const {series, lastDrawLocation} = this.state;
     return (
@@ -84,7 +86,9 @@ export default class ZoomableChartExample extends React.Component {
           }}
         >
           <FlexibleXYPlot
-            margin={{left: 20, top: 30, right: 40, bottom: 50}}
+            width={500}
+            height={300}
+            margin={{left: 20, top: 50, right: 40, bottom: 40}}
             xDomain={
               lastDrawLocation && [
                 lastDrawLocation.left,
@@ -108,7 +112,9 @@ export default class ZoomableChartExample extends React.Component {
             ))}
 
             <Highlight
-              onBrushEnd={area => this.setState({lastDrawLocation: area})}
+              onBrushEnd={area => {
+                this.setState({lastDrawLocation: area});
+              }}
               onDrag={area => {
                 this.setState({
                   lastDrawLocation: {

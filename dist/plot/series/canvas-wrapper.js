@@ -57,7 +57,7 @@ var MAX_DRAWS = 30;
  * @param {Number} width - width of the canvas
  * @param {Array} layers - the layer objects to render
  */
-function engageDrawLoop(ctx, height, width, layers) {
+function engageDrawLoop(ctx, props, layers) {
   var drawIteration = 0;
   // using setInterval because request animation frame goes too fast
   var drawCycle = setInterval(function () {
@@ -65,7 +65,7 @@ function engageDrawLoop(ctx, height, width, layers) {
       clearInterval(drawCycle);
       return;
     }
-    drawLayers(ctx, height, width, layers, drawIteration);
+    drawLayers(ctx, props, layers, drawIteration);
     if (drawIteration > MAX_DRAWS) {
       clearInterval(drawCycle);
     }
@@ -81,7 +81,12 @@ function engageDrawLoop(ctx, height, width, layers) {
  * @param {Array} layers - the layer objects to render
  * @param {Number} drawIteration - width of the canvas
  */
-function drawLayers(ctx, height, width, layers, drawIteration) {
+function drawLayers(ctx, props, layers, drawIteration) {
+  var width = props.width,
+      height = props.height,
+      pixelRatio = props.pixelRatio;
+
+  ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
   ctx.clearRect(0, 0, width, height);
   layers.forEach(function (layer) {
     var interpolator = layer.interpolator,
@@ -141,12 +146,10 @@ var CanvasWrapper = function (_Component) {
       if (!ctx) {
         return;
       }
-      var pixelRatio = this.props.pixelRatio;
-
       if (!ctx) {
         return;
       }
-      ctx.scale(pixelRatio, pixelRatio);
+      // ctx.scale(pixelRatio, pixelRatio);
 
       this.drawChildren(null, this.props, ctx);
     }
@@ -154,7 +157,6 @@ var CanvasWrapper = function (_Component) {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(oldProps) {
       var _props = this.props,
-          pixelRatio = _props.pixelRatio,
           width = _props.width,
           height = _props.height;
 
@@ -163,7 +165,7 @@ var CanvasWrapper = function (_Component) {
         return;
       }
       if (oldProps.height !== height || oldProps.width !== width) {
-        ctx.scale(pixelRatio, pixelRatio);
+        // ctx.scale(pixelRatio, pixelRatio);
       }
       this.drawChildren(oldProps, this.props, this.canvas.getContext('2d'));
     }
@@ -197,14 +199,20 @@ var CanvasWrapper = function (_Component) {
 
       var height = innerHeight + marginTop + marginBottom;
       var width = innerWidth + marginLeft + marginRight;
+
+      var renderProps = _extends({}, newProps, {
+        height: height,
+        width: width
+      });
+
       var layers = buildLayers(newProps.children, oldProps ? oldProps.children : []);
       // if we don't need to be animating, dont! cut short
       if (!childrenShouldAnimate) {
-        drawLayers(ctx, height, width, layers);
+        drawLayers(ctx, renderProps, layers);
         return;
       }
 
-      engageDrawLoop(ctx, height, width, layers);
+      engageDrawLoop(ctx, renderProps, layers);
     }
   }, {
     key: 'render',
