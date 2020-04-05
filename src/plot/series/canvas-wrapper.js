@@ -78,6 +78,72 @@ function drawLayers(ctx, props, layers, drawIteration) {
       ctx
     );
   });
+
+  / NOTE: Re-enable or change layering in canvas/svg hybrids
+  // We have to perform clipping gradients/borders
+  // In the canvas renderer because the canvas layer is always on top of the svg.
+  // In the future the renderer could be change to allow mixed layering between svg
+  // and canvas
+  //
+  // Add a border fade that is cached(drawing gradients every frame
+  // is too expensive)
+  // if (this.cachedBorders) {
+  //   console.log('cache/hit');
+  //   const cache = this.cachedBorders;
+  //   if (
+  //     cache.height === height &&
+  //     cache.marginTop === marginTop &&
+  //     cache.marginBottom === marginBottom &&
+  //     cache.marginLeft === marginLeft &&
+  //     cache.marginRight === marginRight
+  //   ) {
+  //     ctx.drawImage(cache.canvas, 0, 0);
+  //   }
+  // } else {
+  //   console.log('cache/miss');
+  //   const borderCanvas = document.createElement('canvas');
+  //   borderCanvas.width = width;
+  //   borderCanvas.height = height;
+  //   const borderCtx = borderCanvas.getContext('2d');
+
+  //   // left
+  //   // borderCtx.fillStyle = 'rgba(0,0,0,0)';
+  //   borderCtx.fillRect(0, 0, marginLeft, height);
+
+  //   // right
+  //   borderCtx.fillRect(width, 0, -marginRight, height);
+
+  //   // top
+  //   borderCtx.fillRect(0, 0, width, marginTop);
+
+  //   // bottom
+  //   borderCtx.fillRect(0, height, width, -marginBottom);
+
+  //   NOTE: Gradient code for later
+  //   const grad = ctx.createLinearGradient(
+  //     0,
+  //     height,
+  //     0,
+  //     height - marginBottom
+  //   );
+  //   grad.addColorStop(1, 'rgba(255,255,255,0.8)');
+  //   grad.addColorStop(0.75, 'rgba(255,255,255,0.8)');
+  //   grad.addColorStop(0, 'rgba(255,255,255,1)');
+  //   borderCtx.fillStyle = grad;
+  //   borderCtx.fillRect(0, height, width, -marginBottom);
+  //   ctx.globalCompositeOperation = 'source-atop';
+  //   ctx.drawImage(borderCanvas, 0, 0);
+  //   ctx.globalCompositeOperation = 'source-over';
+  //   ctx.drawImage(borderCanvas, 0, 0);
+  //   this.cachedBorders = {
+  //     height,
+  //     marginTop,
+  //     marginBottom,
+  //     marginLeft,
+  //     marginRight,
+  //     canvas: borderCanvas
+  //   };
+  // }
 }
 
 /**

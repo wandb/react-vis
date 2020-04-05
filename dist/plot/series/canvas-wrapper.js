@@ -146,27 +146,17 @@ var CanvasWrapper = function (_Component) {
       if (!ctx) {
         return;
       }
-      if (!ctx) {
-        return;
-      }
-      // ctx.scale(pixelRatio, pixelRatio);
 
       this.drawChildren(null, this.props, ctx);
     }
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(oldProps) {
-      var _props = this.props,
-          width = _props.width,
-          height = _props.height;
-
       var ctx = this.canvas.getContext('2d');
       if (!ctx) {
         return;
       }
-      if (oldProps.height !== height || oldProps.width !== width) {
-        // ctx.scale(pixelRatio, pixelRatio);
-      }
+
       this.drawChildren(oldProps, this.props, this.canvas.getContext('2d'));
     }
 
