@@ -27,7 +27,9 @@ import {
   FlexibleXYPlot,
   XYPlot,
   LineSeriesCanvas,
-  Highlight
+  Highlight,
+  GradientDefs,
+  Borders
 } from 'index';
 import {generateSeededRandom} from '../showcase-utils';
 
@@ -124,6 +126,47 @@ export default class ZoomableChartExample extends React.Component {
                     top: lastDrawLocation.top + (area.top - area.bottom)
                   }
                 });
+              }}
+            />
+            <GradientDefs>
+              <linearGradient id="leftFadeGradient" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0%" stopColor="white" stopOpacity={1} />
+                <stop offset="60%" stopColor="white" stopOpacity={1} />
+                <stop offset="100%" stopColor="white" stopOpacity={0} />
+              </linearGradient>
+              <linearGradient
+                id="rightFadeGradient"
+                x1="1"
+                x2="0"
+                y1="0"
+                y2="0"
+              >
+                <stop offset="0%" stopColor="white" stopOpacity={1} />
+                <stop offset="100%" stopColor="white" stopOpacity={0} />
+              </linearGradient>
+              <linearGradient
+                id="bottomFadeGradient"
+                x1="0"
+                x2="0"
+                y1="1"
+                y2="0"
+              >
+                <stop offset="0%" stopColor="white" stopOpacity={1} />
+                <stop offset="40%" stopColor="white" stopOpacity={1} />
+                <stop offset="100%" stopColor="white" stopOpacity={0} />
+              </linearGradient>
+              <linearGradient id="topFadeGradient" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor="white" stopOpacity={1} />
+                <stop offset="100%" stopColor="white" stopOpacity={0} />
+              </linearGradient>
+            </GradientDefs>
+            <Borders
+              className="plot-border"
+              style={{
+                left: {fill: 'url(#leftFadeGradient)', opacity: 1},
+                right: {fill: 'url(#rightFadeGradient)', opacity: 1},
+                bottom: {fill: 'url(#bottomFadeGradient)', opacity: 1},
+                top: {fill: 'url(#topFadeGradient)', opacity: 1}
               }}
             />
           </FlexibleXYPlot>

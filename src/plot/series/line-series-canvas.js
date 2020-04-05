@@ -39,10 +39,15 @@ class LineSeriesCanvas extends AbstractSeries {
     const {
       curve,
       data,
+      width,
+      height,
       marginLeft,
       marginTop,
+      marginBottom,
+      marginRight,
       strokeWidth,
-      strokeDasharray
+      strokeDasharray,
+      pixelRatio
     } = props;
     if (!data || data.length === 0) {
       return;
@@ -81,6 +86,56 @@ class LineSeriesCanvas extends AbstractSeries {
     // set back to default
     ctx.lineWidth = 1;
     ctx.setLineDash([]);
+
+    // NOTE: We have to perform clipping gradients/borders
+    // In the canvas renderer because the canvas layer is always on top of the svg.
+    // In the future the renderer could be change to allow mixed layering between svg
+    // and canvas
+    //
+    // Add a border fade that is cached(drawing gradients every frame
+    // is too expensive)
+    if (this.cachedBorders) {
+      const cache = this.cachedBorders;
+      if (
+        cache.height === height &&
+        cache.marginTop === marginTop &&
+        cache.marginBottom === marginBottom &&
+        cache.marginLeft === marginLeft &&
+        cache.marginRight === marginRight
+      ) {
+        ctx.drawImage(cache.canvas, 0, 0);
+      }
+    } else {
+      const borderCanvas = document.createElement('canvas');
+      borderCanvas.width = width * pixelRatio;
+      borderCanvas.height = height * pixelRatio;
+      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      const borderCtx = borderCanvas.getContext('2d');
+
+      // left
+      // ctx.createLinearGradient(0, 0, marginLeft, 0);
+      borderCtx.fillStyle = 'white';
+      borderCtx.fillRect(0, 0, marginLeft, height);
+
+      // right
+      borderCtx.fillRect(width, 0, -marginRight, height);
+
+      // top
+      borderCtx.fillRect(0, 0, width, marginTop);
+
+      // bottom
+      borderCtx.fillStyle = 'white';
+      borderCtx.fillRect(0, height, width, -marginBottom);
+      ctx.drawImage(borderCanvas, 0, 0);
+      this.cachedBorders = {
+        height,
+        marginTop,
+        marginBottom,
+        marginLeft,
+        marginRight,
+        canvas: borderCanvas
+      };
+    }
   }
 
   render() {
