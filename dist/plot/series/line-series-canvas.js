@@ -93,12 +93,11 @@ var LineSeriesCanvas = function (_AbstractSeries) {
 
       var height = innerHeight + marginTop + marginBottom;
       var width = innerWidth + marginLeft + marginRight;
-      var pixelRatio = window.devicePixelRatio;
 
       var x = (0, _scalesUtils.getAttributeFunctor)(props, 'x');
       var y = (0, _scalesUtils.getAttributeFunctor)(props, 'y');
       var stroke = (0, _scalesUtils.getAttributeValue)(props, 'stroke') || (0, _scalesUtils.getAttributeValue)(props, 'color');
-      var strokeColor = (0, _d3Color.rgb)(stroke);
+
       var newOpacity = (0, _scalesUtils.getAttributeValue)(props, 'opacity');
       var opacity = Number.isFinite(newOpacity) ? newOpacity : _theme.DEFAULT_OPACITY;
       var line = d3Shape.line().x(function (row) {
@@ -112,8 +111,12 @@ var LineSeriesCanvas = function (_AbstractSeries) {
         line = line.curve(curve);
       }
 
+      var preAlpha = ctx.globalAlpha;
+      ctx.globalAlpha = opacity;
+      ctx.globalAlpha = preAlpha;
+
       ctx.beginPath();
-      ctx.strokeStyle = 'rgba(' + strokeColor.r + ', ' + strokeColor.g + ', ' + strokeColor.b + ', ' + opacity + ')';
+      ctx.strokeStyle = stroke;
       ctx.lineWidth = strokeWidth;
 
       if (strokeDasharray) {

@@ -54,13 +54,12 @@ class LineSeriesCanvas extends AbstractSeries {
 
     const height = innerHeight + marginTop + marginBottom;
     const width = innerWidth + marginLeft + marginRight;
-    const pixelRatio = window.devicePixelRatio;
 
     const x = getAttributeFunctor(props, 'x');
     const y = getAttributeFunctor(props, 'y');
     const stroke =
       getAttributeValue(props, 'stroke') || getAttributeValue(props, 'color');
-    const strokeColor = rgb(stroke);
+
     const newOpacity = getAttributeValue(props, 'opacity');
     const opacity = Number.isFinite(newOpacity) ? newOpacity : DEFAULT_OPACITY;
     let line = d3Shape
@@ -73,10 +72,12 @@ class LineSeriesCanvas extends AbstractSeries {
       line = line.curve(curve);
     }
 
+    const preAlpha = ctx.globalAlpha;
+    ctx.globalAlpha = opacity;
+    ctx.globalAlpha = preAlpha;
+
     ctx.beginPath();
-    ctx.strokeStyle = `rgba(${strokeColor.r}, ${strokeColor.g}, ${
-      strokeColor.b
-    }, ${opacity})`;
+    ctx.strokeStyle = stroke;
     ctx.lineWidth = strokeWidth;
 
     if (strokeDasharray) {
