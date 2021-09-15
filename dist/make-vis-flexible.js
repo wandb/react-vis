@@ -17,10 +17,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _window = require('global/window');
-
-var _window2 = _interopRequireDefault(_window);
-
 var _xyPlot = require('./plot/xy-plot');
 
 var _xyPlot2 = _interopRequireDefault(_xyPlot);
@@ -55,6 +51,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+// this caused the following error:
+// Uncaught ReferenceError: Cannot access 'window' before initialization at make-vis-flexible.js:1
+// import window from 'global/window';
+
 var CONTAINER_REF = 'container';
 
 // As a performance enhancement, we want to only listen once
@@ -66,8 +66,8 @@ var timeoutId = null;
  * Calls each subscriber, debounced to the
  */
 function debounceEmitResize() {
-  _window2.default.clearTimeout(timeoutId);
-  timeoutId = _window2.default.setTimeout(emitResize, DEBOUNCE_DURATION);
+  window.clearTimeout(timeoutId);
+  timeoutId = window.setTimeout(emitResize, DEBOUNCE_DURATION);
 }
 
 /**
@@ -93,15 +93,15 @@ function subscribeToDebouncedResize(cb) {
 
   // if we go from zero to one Flexible components instances, add the listener
   if (resizeSubscribers.length === 1) {
-    _window2.default.addEventListener('resize', debounceEmitResize);
+    window.addEventListener('resize', debounceEmitResize);
   }
   return function unsubscribe() {
     removeSubscriber(cb);
 
     // if we have no Flexible components, remove the listener
     if (resizeSubscribers.length === 0) {
-      _window2.default.clearTimeout(timeoutId);
-      _window2.default.removeEventListener('resize', debounceEmitResize);
+      window.clearTimeout(timeoutId);
+      window.removeEventListener('resize', debounceEmitResize);
     }
   };
 }
