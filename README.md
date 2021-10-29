@@ -3,16 +3,25 @@ Wandb fork
 
 This is a wandb fork of react-vis as of now, to patch issues with canvas mode.
 
-To deploy
-=========
-bump version 
+# To Deploy
+
+Make sure you have previously bumped the version on the `main` branch.
 
 ```bash
-yarn build
-git add dist
-git commit
-git push
+n 10.20.1
+cd packages/react-vis
+yarn && yarn build
+rm -rf node_modules
+mkdir -p /tmp/release-react-vis
+mv * /tmp/release-react-vis
+cd ../../
+git checkout . && git checkout release
+rsync -a /tmp/release-react-vis/* .
+rm -rf /tmp/release-reaact-vis
+git commit -am "Release vX.Y.Z"
+git push origin release
 ```
+
 
 <p align="right">
   <a href="https://npmjs.org/package/react-vis">
