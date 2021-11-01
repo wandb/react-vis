@@ -15,13 +15,15 @@ rm -rf node_modules
 mkdir -p /tmp/release-react-vis
 mv * /tmp/release-react-vis
 cd ../../
-git checkout . && git checkout release
+git checkout . && git fetch origin release && git checkout release
+git checkout -b release/vX.Y.Z
 rsync -a /tmp/release-react-vis/* .
 rm -rf /tmp/release-reaact-vis
-git commit -am "Release vX.Y.Z"
-git push origin release
+git add . && git commit -m "Release vX.Y.Z"
+git push origin release/vX.Y.Z
 ```
 
+Create PR from release/vX.Y.Z into release branch.
 
 <p align="right">
   <a href="https://npmjs.org/package/react-vis">
