@@ -51,5 +51,6 @@
   },
   "resolutions": {
     "js-beautify": "1.10.3"
-  }
+  },
+  "packageManager": "yarn@3.2.0"
 }
