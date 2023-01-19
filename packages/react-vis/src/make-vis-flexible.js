@@ -19,7 +19,10 @@
 // THE SOFTWARE.
 
 import React from 'react';
-import window from 'global/window';
+
+// this caused the following error:
+// Uncaught ReferenceError: Cannot access 'window' before initialization at make-vis-flexible.js:1
+// import window from 'global/window';
 
 import XYPlot from 'plot/xy-plot';
 import {getDOMNode} from 'utils/react-utils';
