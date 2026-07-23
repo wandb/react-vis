@@ -35,6 +35,22 @@ import DecorativeAxis from 'plot/axis/decorative-axis';
 
 const predefinedClassName = 'rv-radar-chart';
 const DEFAULT_FORMAT = format('.2r');
+const DEFAULT_STYLE = {
+  axes: {
+    line: {},
+    ticks: {},
+    text: {}
+  },
+  labels: {
+    fontSize: 10,
+    textAnchor: 'middle'
+  },
+  polygons: {
+    strokeWidth: 0.5,
+    strokeOpacity: 1,
+    fillOpacity: 0.1
+  }
+};
 /**
  * Generate axes for each of the domains
  * @param {Object} props
@@ -257,30 +273,28 @@ function getPolygonPoints(props) {
   });
 }
 
-function RadarChart(props) {
-  const {
-    animation,
-    className,
-    children,
-    colorRange,
-    data,
-    domains,
-    height,
-    hideInnerMostValues,
-    margin,
-    onMouseLeave,
-    onMouseEnter,
-    startingAngle,
-    style,
-    tickFormat,
-    width,
-    renderAxesOverPolygons,
-    onValueMouseOver,
-    onValueMouseOut,
-    onSeriesMouseOver,
-    onSeriesMouseOut
-  } = props;
-
+function RadarChart({
+  animation,
+  className = '',
+  children,
+  colorRange = DISCRETE_COLOR_RANGE,
+  data,
+  domains,
+  height,
+  hideInnerMostValues = true,
+  margin,
+  onMouseLeave,
+  onMouseEnter,
+  startingAngle = Math.PI / 2,
+  style = DEFAULT_STYLE,
+  tickFormat = DEFAULT_FORMAT,
+  width,
+  renderAxesOverPolygons = false,
+  onValueMouseOver,
+  onValueMouseOut,
+  onSeriesMouseOver,
+  onSeriesMouseOut
+}) {
   const axes = getAxes({
     domains,
     animation,
@@ -378,30 +392,4 @@ RadarChart.propTypes = {
   onSeriesMouseOver: PropTypes.func,
   onSeriesMouseOut: PropTypes.func
 };
-RadarChart.defaultProps = {
-  className: '',
-  colorType: 'category',
-  colorRange: DISCRETE_COLOR_RANGE,
-  hideInnerMostValues: true,
-  startingAngle: Math.PI / 2,
-  style: {
-    axes: {
-      line: {},
-      ticks: {},
-      text: {}
-    },
-    labels: {
-      fontSize: 10,
-      textAnchor: 'middle'
-    },
-    polygons: {
-      strokeWidth: 0.5,
-      strokeOpacity: 1,
-      fillOpacity: 0.1
-    }
-  },
-  tickFormat: DEFAULT_FORMAT,
-  renderAxesOverPolygons: false
-};
-
 export default RadarChart;
