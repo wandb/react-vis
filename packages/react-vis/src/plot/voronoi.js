@@ -29,14 +29,14 @@ function getExtent({innerWidth, innerHeight, marginLeft, marginTop}) {
 
 function Voronoi(props) {
   const {
-    className,
+    className = '',
     extent,
     nodes,
-    onBlur,
-    onClick,
-    onMouseUp,
-    onMouseDown,
-    onHover,
+    onBlur = NOOP,
+    onClick = NOOP,
+    onMouseUp = NOOP,
+    onMouseDown = NOOP,
+    onHover = NOOP,
     polygonStyle,
     style,
     x,
@@ -96,14 +96,6 @@ function Voronoi(props) {
 
 Voronoi.requiresSVG = true;
 Voronoi.displayName = 'Voronoi';
-Voronoi.defaultProps = {
-  className: '',
-  onBlur: NOOP,
-  onClick: NOOP,
-  onHover: NOOP,
-  onMouseDown: NOOP,
-  onMouseUp: NOOP
-};
 
 Voronoi.propTypes = {
   className: PropTypes.string,

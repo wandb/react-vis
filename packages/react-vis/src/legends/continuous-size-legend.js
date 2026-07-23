@@ -36,22 +36,15 @@ const propTypes = {
   width: PropTypes.number
 };
 
-const defaultProps = {
-  circlesTotal: 10,
-  className: '',
-  endSize: 20,
-  startSize: 2
-};
-
 function ContinuousSizeLegend({
   startTitle,
   endTitle,
-  startSize,
-  endSize,
-  circlesTotal,
+  startSize = 2,
+  endSize = 20,
+  circlesTotal = 10,
   height,
   width,
-  className
+  className = ''
 }) {
   const circles = [];
   const step = (endSize - startSize) / (circlesTotal - 1);
@@ -92,6 +85,5 @@ function ContinuousSizeLegend({
 
 ContinuousSizeLegend.displayName = 'ContinuousSizeLegend';
 ContinuousSizeLegend.propTypes = propTypes;
-ContinuousSizeLegend.defaultProps = defaultProps;
 
 export default ContinuousSizeLegend;

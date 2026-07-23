@@ -46,6 +46,14 @@ const CLASSES = {
   top: 'rv-xy-plot__borders-top'
 };
 
+const DEFAULT_STYLE = {
+  all: {},
+  bottom: {},
+  left: {},
+  right: {},
+  top: {}
+};
+
 function Borders(props) {
   const {
     marginTop,
@@ -54,8 +62,8 @@ function Borders(props) {
     marginRight,
     innerWidth,
     innerHeight,
-    style,
-    className
+    style = DEFAULT_STYLE,
+    className = ''
   } = props;
   const height = innerHeight + marginTop + marginBottom;
   const width = innerWidth + marginLeft + marginRight;
@@ -98,16 +106,6 @@ function Borders(props) {
 }
 
 Borders.displayName = 'Borders';
-Borders.defaultProps = {
-  className: '',
-  style: {
-    all: {},
-    bottom: {},
-    left: {},
-    right: {},
-    top: {}
-  }
-};
 Borders.propTypes = propTypes;
 Borders.requiresSVG = true;
 

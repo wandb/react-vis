@@ -91,9 +91,55 @@ function _getScaleFns(props) {
   };
 }
 
-function Treemap(props) {
+const defaultSortFunction = (a, b, accessor) => {
+  if (!accessor) {
+    return 0;
+  }
+  return accessor(a) - accessor(b);
+};
+
+function Treemap({
+  className = '',
+  colorRange = CONTINUOUS_COLOR_RANGE,
+  _colorValue = DEFAULT_COLOR,
+  data = {children: []},
+  hideRootNode = false,
+  margin = DEFAULT_MARGINS,
+  mode = 'squarify',
+  onLeafClick = NOOP,
+  onLeafMouseOver = NOOP,
+  onLeafMouseOut = NOOP,
+  opacityType = OPACITY_TYPE,
+  _opacityValue = DEFAULT_OPACITY,
+  padding = 1,
+  sortFunction = defaultSortFunction,
+  getSize = d => d.size,
+  getColor = d => d.color,
+  getLabel = d => d.title,
+  ...restProps
+}) {
+  const props = {
+    className,
+    colorRange,
+    _colorValue,
+    data,
+    hideRootNode,
+    margin,
+    mode,
+    onLeafClick,
+    onLeafMouseOver,
+    onLeafMouseOut,
+    opacityType,
+    _opacityValue,
+    padding,
+    sortFunction,
+    getSize,
+    getColor,
+    getLabel,
+    ...restProps
+  };
   const scales = _getScaleFns(props);
-  const innerDimensions = getInnerDimensions(props, props.margin);
+  const innerDimensions = getInnerDimensions(props, margin);
 
   /**
    * Create the list of nodes to render.
@@ -180,30 +226,4 @@ Treemap.propTypes = {
   getColor: PropTypes.func
 };
 
-Treemap.defaultProps = {
-  className: '',
-  colorRange: CONTINUOUS_COLOR_RANGE,
-  _colorValue: DEFAULT_COLOR,
-  data: {
-    children: []
-  },
-  hideRootNode: false,
-  margin: DEFAULT_MARGINS,
-  mode: 'squarify',
-  onLeafClick: NOOP,
-  onLeafMouseOver: NOOP,
-  onLeafMouseOut: NOOP,
-  opacityType: OPACITY_TYPE,
-  _opacityValue: DEFAULT_OPACITY,
-  padding: 1,
-  sortFunction: (a, b, accessor) => {
-    if (!accessor) {
-      return 0;
-    }
-    return accessor(a) - accessor(b);
-  },
-  getSize: d => d.size,
-  getColor: d => d.color,
-  getLabel: d => d.title
-};
 export default Treemap;

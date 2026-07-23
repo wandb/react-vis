@@ -33,19 +33,14 @@ const propTypes = {
   orientation: PropTypes.oneOf([TOP, BOTTOM])
 };
 
-const defaultProps = {
-  orientation: BOTTOM,
-  attr: 'x',
-  attrAxis: 'y'
-};
-
-function XAxis(props) {
-  return <Axis {...props} />;
+function XAxis({orientation = BOTTOM, attr = 'x', attrAxis = 'y', ...rest}) {
+  return (
+    <Axis {...rest} orientation={orientation} attr={attr} attrAxis={attrAxis} />
+  );
 }
 
 XAxis.displayName = 'XAxis';
 XAxis.propTypes = propTypes;
-XAxis.defaultProps = defaultProps;
 XAxis.requiresSVG = true;
 
 export default XAxis;
