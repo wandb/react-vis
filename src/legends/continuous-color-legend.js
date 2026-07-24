@@ -39,22 +39,16 @@ const propTypes = {
   width: PropTypes.number
 };
 
-const defaultProps = {
-  className: '',
-  startColor: CONTINUOUS_COLOR_RANGE[0],
-  endColor: CONTINUOUS_COLOR_RANGE[1]
-};
-
 function ContinuousColorLegend({
-  startColor,
+  startColor = CONTINUOUS_COLOR_RANGE[0],
   midColor,
-  endColor,
+  endColor = CONTINUOUS_COLOR_RANGE[1],
   startTitle,
   midTitle,
   endTitle,
   height,
   width,
-  className
+  className = ''
 }) {
   const colors = [startColor];
   if (midColor) {
@@ -83,6 +77,5 @@ function ContinuousColorLegend({
 
 ContinuousColorLegend.displayName = 'ContinuousColorLegend';
 ContinuousColorLegend.propTypes = propTypes;
-ContinuousColorLegend.defaultProps = defaultProps;
 
 export default ContinuousColorLegend;

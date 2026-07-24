@@ -3,10 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getUniquePropertyValues = getUniquePropertyValues;
 exports.addValueToArray = addValueToArray;
+exports.getUniquePropertyValues = getUniquePropertyValues;
 exports.transformValueToString = transformValueToString;
-
 // Copyright (c) 2016 - 2017 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -37,34 +36,29 @@ function getUniquePropertyValues(arr, accessor) {
   var setOfValues = new Set(arr.map(accessor));
   return Array.from(setOfValues);
 }
+
 /**
  * Add zero to the domain.
  * @param {Array} arr Add zero to the domain.
  * @param {Number} value Add zero to domain.
  * @returns {Array} Adjusted domain.
  */
-
-
 function addValueToArray(arr, value) {
   var result = [].concat(arr);
-
   if (result[0] > value) {
     result[0] = value;
   }
-
   if (result[result.length - 1] < value) {
     result[result.length - 1] = value;
   }
-
   return result;
 }
+
 /**
  * Transforms a value ( number or date ) to a string.
  * @param {Date | number} value The value as date or number.
  * @returns {string | number} The value as string.
  */
-
-
 function transformValueToString(value) {
   return Object.prototype.toString.call(value) === '[object Date]' ? value.toDateString() : value;
 }

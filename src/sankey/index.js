@@ -34,8 +34,39 @@ const DEFAULT_MARGINS = {
   bottom: 20
 };
 
-function Sankey(props) {
-  const {
+const DEFAULT_STYLE = {
+  links: {},
+  rects: {},
+  labels: {}
+};
+
+function Sankey({
+  align = 'justify',
+  animation,
+  children,
+  className = '',
+  hasVoronoi = false,
+  height,
+  hideLabels = false,
+  labelRotation = 0,
+  layout = 50,
+  links,
+  linkOpacity,
+  margin = DEFAULT_MARGINS,
+  nodePadding = 10,
+  nodes,
+  nodeWidth = 10,
+  onValueClick = NOOP,
+  onValueMouseOver = NOOP,
+  onValueMouseOut = NOOP,
+  onLinkClick = NOOP,
+  onLinkMouseOver = NOOP,
+  onLinkMouseOut = NOOP,
+  style = DEFAULT_STYLE,
+  width,
+  ...restProps
+}) {
+  const props = {
     align,
     animation,
     children,
@@ -58,8 +89,9 @@ function Sankey(props) {
     onLinkMouseOver,
     onLinkMouseOut,
     style,
-    width
-  } = props;
+    width,
+    ...restProps
+  };
   const nodesCopy = [...new Array(nodes.length)].map((e, i) => ({
     ...nodes[i]
   }));
@@ -173,29 +205,6 @@ function Sankey(props) {
     </XYPlot>
   );
 }
-
-Sankey.defaultProps = {
-  align: 'justify',
-  className: '',
-  hasVoronoi: false,
-  hideLabels: false,
-  labelRotation: 0,
-  layout: 50,
-  margin: DEFAULT_MARGINS,
-  nodePadding: 10,
-  nodeWidth: 10,
-  onValueMouseOver: NOOP,
-  onValueClick: NOOP,
-  onValueMouseOut: NOOP,
-  onLinkClick: NOOP,
-  onLinkMouseOver: NOOP,
-  onLinkMouseOut: NOOP,
-  style: {
-    links: {},
-    rects: {},
-    labels: {}
-  }
-};
 
 Sankey.propTypes = {
   align: PropTypes.oneOf(['justify', 'left', 'right', 'center']),

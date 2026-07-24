@@ -4,35 +4,44 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
 var _react = _interopRequireDefault(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _d3Hierarchy = require("d3-hierarchy");
-
 var _theme = require("../theme");
-
 var _animation = require("../animation");
-
 var _scalesUtils = require("../utils/scales-utils");
-
 var _chartUtils = require("../utils/chart-utils");
-
 var _treemapDom = _interopRequireDefault(require("./treemap-dom"));
-
 var _treemapSvg = _interopRequireDefault(require("./treemap-svg"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+var _excluded = ["className", "colorRange", "_colorValue", "data", "hideRootNode", "margin", "mode", "onLeafClick", "onLeafMouseOver", "onLeafMouseOut", "opacityType", "_opacityValue", "padding", "sortFunction", "getSize", "getColor", "getLabel"];
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function _objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i = _objectWithoutPropertiesLoose(e, t); if (Object.getOwnPropertySymbols) { var n = Object.getOwnPropertySymbols(e); for (r = 0; r < n.length; r++) o = n[r], -1 === t.indexOf(o) && {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]); } return i; }
+function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (-1 !== e.indexOf(n)) continue; t[n] = r[n]; } return t; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); } // Copyright (c) 2016 - 2017 Uber Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 var TREEMAP_TILE_MODES = {
   squarify: _d3Hierarchy.treemapSquarify,
   resquarify: _d3Hierarchy.treemapResquarify,
@@ -42,11 +51,9 @@ var TREEMAP_TILE_MODES = {
   binary: _d3Hierarchy.treemapBinary
 };
 var TREEMAP_LAYOUT_MODES = ['circlePack', 'partition', 'partition-pivot'];
-
 var NOOP = function NOOP(d) {
   return d;
 };
-
 var ATTRIBUTES = ['opacity', 'color'];
 var DEFAULT_MARGINS = {
   left: 40,
@@ -54,60 +61,121 @@ var DEFAULT_MARGINS = {
   top: 10,
   bottom: 40
 };
+
 /**
  * Get the map of scale functions from the given props.
  * @param {Object} props Props for the component.
  * @returns {Object} Map of scale functions.
  * @private
  */
-
 function _getScaleFns(props) {
   var data = props.data;
-  var allData = data.children || []; // Adding _allData property to the object to reuse the existing
-  // getAttributeFunctor function.
+  var allData = data.children || [];
 
+  // Adding _allData property to the object to reuse the existing
+  // getAttributeFunctor function.
   var compatibleProps = _objectSpread(_objectSpread(_objectSpread({}, props), (0, _scalesUtils.getMissingScaleProps)(props, allData, ATTRIBUTES)), {}, {
     _allData: allData
   });
-
   return {
     opacity: (0, _scalesUtils.getAttributeFunctor)(compatibleProps, 'opacity'),
     color: (0, _scalesUtils.getAttributeFunctor)(compatibleProps, 'color')
   };
 }
-
-function Treemap(props) {
+var defaultSortFunction = function defaultSortFunction(a, b, accessor) {
+  if (!accessor) {
+    return 0;
+  }
+  return accessor(a) - accessor(b);
+};
+function Treemap(_ref) {
+  var _ref$className = _ref.className,
+    className = _ref$className === void 0 ? '' : _ref$className,
+    _ref$colorRange = _ref.colorRange,
+    colorRange = _ref$colorRange === void 0 ? _theme.CONTINUOUS_COLOR_RANGE : _ref$colorRange,
+    _ref$_colorValue = _ref._colorValue,
+    _colorValue = _ref$_colorValue === void 0 ? _theme.DEFAULT_COLOR : _ref$_colorValue,
+    _ref$data = _ref.data,
+    data = _ref$data === void 0 ? {
+      children: []
+    } : _ref$data,
+    _ref$hideRootNode = _ref.hideRootNode,
+    hideRootNode = _ref$hideRootNode === void 0 ? false : _ref$hideRootNode,
+    _ref$margin = _ref.margin,
+    margin = _ref$margin === void 0 ? DEFAULT_MARGINS : _ref$margin,
+    _ref$mode = _ref.mode,
+    mode = _ref$mode === void 0 ? 'squarify' : _ref$mode,
+    _ref$onLeafClick = _ref.onLeafClick,
+    onLeafClick = _ref$onLeafClick === void 0 ? NOOP : _ref$onLeafClick,
+    _ref$onLeafMouseOver = _ref.onLeafMouseOver,
+    onLeafMouseOver = _ref$onLeafMouseOver === void 0 ? NOOP : _ref$onLeafMouseOver,
+    _ref$onLeafMouseOut = _ref.onLeafMouseOut,
+    onLeafMouseOut = _ref$onLeafMouseOut === void 0 ? NOOP : _ref$onLeafMouseOut,
+    _ref$opacityType = _ref.opacityType,
+    opacityType = _ref$opacityType === void 0 ? _theme.OPACITY_TYPE : _ref$opacityType,
+    _ref$_opacityValue = _ref._opacityValue,
+    _opacityValue = _ref$_opacityValue === void 0 ? _theme.DEFAULT_OPACITY : _ref$_opacityValue,
+    _ref$padding = _ref.padding,
+    padding = _ref$padding === void 0 ? 1 : _ref$padding,
+    _ref$sortFunction = _ref.sortFunction,
+    sortFunction = _ref$sortFunction === void 0 ? defaultSortFunction : _ref$sortFunction,
+    _ref$getSize = _ref.getSize,
+    getSize = _ref$getSize === void 0 ? function (d) {
+      return d.size;
+    } : _ref$getSize,
+    _ref$getColor = _ref.getColor,
+    getColor = _ref$getColor === void 0 ? function (d) {
+      return d.color;
+    } : _ref$getColor,
+    _ref$getLabel = _ref.getLabel,
+    getLabel = _ref$getLabel === void 0 ? function (d) {
+      return d.title;
+    } : _ref$getLabel,
+    restProps = _objectWithoutProperties(_ref, _excluded);
+  var props = _objectSpread({
+    className: className,
+    colorRange: colorRange,
+    _colorValue: _colorValue,
+    data: data,
+    hideRootNode: hideRootNode,
+    margin: margin,
+    mode: mode,
+    onLeafClick: onLeafClick,
+    onLeafMouseOver: onLeafMouseOver,
+    onLeafMouseOut: onLeafMouseOut,
+    opacityType: opacityType,
+    _opacityValue: _opacityValue,
+    padding: padding,
+    sortFunction: sortFunction,
+    getSize: getSize,
+    getColor: getColor,
+    getLabel: getLabel
+  }, restProps);
   var scales = _getScaleFns(props);
+  var innerDimensions = (0, _chartUtils.getInnerDimensions)(props, margin);
 
-  var innerDimensions = (0, _chartUtils.getInnerDimensions)(props, props.margin);
   /**
    * Create the list of nodes to render.
    * @returns {Array} Array of nodes.
    * @private
    */
-
   function _getNodesToRender() {
     var innerWidth = innerDimensions.innerWidth,
-        innerHeight = innerDimensions.innerHeight;
+      innerHeight = innerDimensions.innerHeight;
     var data = props.data,
-        mode = props.mode,
-        padding = props.padding,
-        sortFunction = props.sortFunction,
-        getSize = props.getSize;
-
+      mode = props.mode,
+      padding = props.padding,
+      sortFunction = props.sortFunction,
+      getSize = props.getSize;
     if (!data) {
       return [];
     }
-
     if (mode === 'partition' || mode === 'partition-pivot') {
       var partitionFunction = (0, _d3Hierarchy.partition)().size(mode === 'partition-pivot' ? [innerHeight, innerWidth] : [innerWidth, innerHeight]).padding(padding);
-
       var _structuredInput = (0, _d3Hierarchy.hierarchy)(data).sum(getSize).sort(function (a, b) {
         return sortFunction(a, b, getSize);
       });
-
       var mappedNodes = partitionFunction(_structuredInput).descendants();
-
       if (mode === 'partition-pivot') {
         return mappedNodes.map(function (node) {
           return _objectSpread(_objectSpread({}, node), {}, {
@@ -118,20 +186,15 @@ function Treemap(props) {
           });
         });
       }
-
       return mappedNodes;
     }
-
     if (mode === 'circlePack') {
       var packingFunction = (0, _d3Hierarchy.pack)().size([innerWidth, innerHeight]).padding(padding);
-
       var _structuredInput2 = (0, _d3Hierarchy.hierarchy)(data).sum(getSize).sort(function (a, b) {
         return sortFunction(a, b, getSize);
       });
-
       return packingFunction(_structuredInput2).descendants();
     }
-
     var tileFn = TREEMAP_TILE_MODES[mode];
     var treemapingFunction = (0, _d3Hierarchy.treemap)(tileFn).tile(tileFn).size([innerWidth, innerHeight]).padding(padding);
     var structuredInput = (0, _d3Hierarchy.hierarchy)(data).sum(getSize).sort(function (a, b) {
@@ -139,18 +202,14 @@ function Treemap(props) {
     });
     return treemapingFunction(structuredInput).descendants();
   }
-
   var renderMode = props.renderMode;
-
   var nodes = _getNodesToRender();
-
   var TreemapElement = renderMode === 'SVG' ? _treemapSvg["default"] : _treemapDom["default"];
   return /*#__PURE__*/_react["default"].createElement(TreemapElement, _extends({}, props, {
     nodes: nodes,
     scales: scales
   }));
 }
-
 Treemap.displayName = 'Treemap';
 Treemap.propTypes = {
   animation: _animation.AnimationPropType,
@@ -170,38 +229,4 @@ Treemap.propTypes = {
   getSize: _propTypes["default"].func,
   getColor: _propTypes["default"].func
 };
-Treemap.defaultProps = {
-  className: '',
-  colorRange: _theme.CONTINUOUS_COLOR_RANGE,
-  _colorValue: _theme.DEFAULT_COLOR,
-  data: {
-    children: []
-  },
-  hideRootNode: false,
-  margin: DEFAULT_MARGINS,
-  mode: 'squarify',
-  onLeafClick: NOOP,
-  onLeafMouseOver: NOOP,
-  onLeafMouseOut: NOOP,
-  opacityType: _theme.OPACITY_TYPE,
-  _opacityValue: _theme.DEFAULT_OPACITY,
-  padding: 1,
-  sortFunction: function sortFunction(a, b, accessor) {
-    if (!accessor) {
-      return 0;
-    }
-
-    return accessor(a) - accessor(b);
-  },
-  getSize: function getSize(d) {
-    return d.size;
-  },
-  getColor: function getColor(d) {
-    return d.color;
-  },
-  getLabel: function getLabel(d) {
-    return d.title;
-  }
-};
-var _default = Treemap;
-exports["default"] = _default;
+var _default = exports["default"] = Treemap;

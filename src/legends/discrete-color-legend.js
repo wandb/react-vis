@@ -26,14 +26,14 @@ import {DISCRETE_COLOR_RANGE} from 'theme';
 import {getCombinedClassName} from 'utils/styling-utils';
 
 function DiscreteColorLegend({
-  className,
-  colors,
+  className = '',
+  colors = DISCRETE_COLOR_RANGE,
   height,
   items,
   onItemClick,
   onItemMouseEnter,
   onItemMouseLeave,
-  orientation,
+  orientation = 'vertical',
   style,
   width
 }) {
@@ -90,12 +90,6 @@ DiscreteColorLegend.propTypes = {
   height: PropTypes.number,
   width: PropTypes.number,
   orientation: PropTypes.oneOf(['vertical', 'horizontal'])
-};
-
-DiscreteColorLegend.defaultProps = {
-  className: '',
-  colors: DISCRETE_COLOR_RANGE,
-  orientation: 'vertical'
 };
 
 export default DiscreteColorLegend;

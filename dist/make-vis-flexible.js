@@ -3,79 +3,77 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.FlexibleXYPlot = exports.FlexibleWidthXYPlot = exports.FlexibleHeightXYPlot = void 0;
 exports.makeHeightFlexible = makeHeightFlexible;
 exports.makeVisFlexible = makeVisFlexible;
 exports.makeWidthFlexible = makeWidthFlexible;
-exports.FlexibleXYPlot = exports.FlexibleHeightXYPlot = exports.FlexibleWidthXYPlot = void 0;
-
 var _react = _interopRequireDefault(require("react"));
-
 var _window = _interopRequireDefault(require("global/window"));
-
 var _xyPlot = _interopRequireDefault(require("./plot/xy-plot"));
-
 var _reactUtils = require("./utils/react-utils");
+var _excluded = ["height", "width"];
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i = _objectWithoutPropertiesLoose(e, t); if (Object.getOwnPropertySymbols) { var n = Object.getOwnPropertySymbols(e); for (r = 0; r < n.length; r++) o = n[r], -1 === t.indexOf(o) && {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]); } return i; }
+function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (-1 !== e.indexOf(n)) continue; t[n] = r[n]; } return t; }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); } // Copyright (c) 2016 - 2017 Uber Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+var CONTAINER_REF = 'container';
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var CONTAINER_REF = 'container'; // As a performance enhancement, we want to only listen once
-
+// As a performance enhancement, we want to only listen once
 var resizeSubscribers = [];
 var DEBOUNCE_DURATION = 100;
 var timeoutId = null;
+
 /**
  * Calls each subscriber, debounced to the
  */
-
 function debounceEmitResize() {
   _window["default"].clearTimeout(timeoutId);
-
   timeoutId = _window["default"].setTimeout(emitResize, DEBOUNCE_DURATION);
 }
+
 /**
  * Calls each subscriber once syncronously.
  */
-
-
 function emitResize() {
   resizeSubscribers.forEach(function (cb) {
     return cb();
   });
 }
+
 /**
  * Add the given callback to the list of subscribers to be caled when the
  * window resizes. Returns a function that, when called, removes the given
@@ -85,115 +83,84 @@ function emitResize() {
  * @param {Function} cb - Subscriber callback function
  * @returns {Function} Unsubscribe function
  */
-
-
 function subscribeToDebouncedResize(cb) {
-  resizeSubscribers.push(cb); // if we go from zero to one Flexible components instances, add the listener
+  resizeSubscribers.push(cb);
 
+  // if we go from zero to one Flexible components instances, add the listener
   if (resizeSubscribers.length === 1) {
     _window["default"].addEventListener('resize', debounceEmitResize);
   }
-
   return function unsubscribe() {
-    removeSubscriber(cb); // if we have no Flexible components, remove the listener
+    removeSubscriber(cb);
 
+    // if we have no Flexible components, remove the listener
     if (resizeSubscribers.length === 0) {
       _window["default"].clearTimeout(timeoutId);
-
       _window["default"].removeEventListener('resize', debounceEmitResize);
     }
   };
 }
+
 /**
  * Helper for removing the given callback from the list of subscribers.
  *
  * @param {Function} cb - Subscriber callback function
  */
-
-
 function removeSubscriber(cb) {
   var index = resizeSubscribers.indexOf(cb);
-
   if (index > -1) {
     resizeSubscribers.splice(index, 1);
   }
 }
+
 /**
  * Helper for getting a display name for the child component
  * @param {*} Component React class for the child component.
  * @returns {String} The child components name
  */
-
-
 function getDisplayName(Component) {
   return Component.displayName || Component.name || 'Component';
 }
+
 /**
  * Add the ability to stretch the visualization on window resize.
  * @param {*} Component React class for the child component.
  * @returns {*} Flexible component.
  */
 
-
 function makeFlexible(Component, isWidthFlexible, isHeightFlexible) {
-  var _temp;
-
-  var ResultClass = (_temp = /*#__PURE__*/function (_React$Component) {
-    _inherits(ResultClass, _React$Component);
-
-    var _super = _createSuper(ResultClass);
-
-    _createClass(ResultClass, null, [{
-      key: "propTypes",
-      get: function get() {
-        var _Component$propTypes = Component.propTypes,
-            height = _Component$propTypes.height,
-            width = _Component$propTypes.width,
-            otherPropTypes = _objectWithoutProperties(_Component$propTypes, ["height", "width"]); // eslint-disable-line no-unused-vars
-
-
-        return otherPropTypes;
-      }
-    }]);
-
+  var ResultClass = /*#__PURE__*/function (_React$Component) {
     function ResultClass(props) {
       var _this;
-
       _classCallCheck(this, ResultClass);
-
-      _this = _super.call(this, props);
-
-      _defineProperty(_assertThisInitialized(_this), "_onResize", function () {
+      _this = _callSuper(this, ResultClass, [props]);
+      /**
+       * Get the width of the container and assign the width.
+       * @private
+       */
+      _defineProperty(_this, "_onResize", function () {
         var containerElement = (0, _reactUtils.getDOMNode)(_this[CONTAINER_REF]);
         var offsetHeight = containerElement.offsetHeight,
-            offsetWidth = containerElement.offsetWidth;
+          offsetWidth = containerElement.offsetWidth;
         var newHeight = _this.state.height === offsetHeight ? {} : {
           height: offsetHeight
         };
         var newWidth = _this.state.width === offsetWidth ? {} : {
           width: offsetWidth
         };
-
         _this.setState(_objectSpread(_objectSpread({}, newHeight), newWidth));
       });
-
       _this.state = {
         height: null,
         width: null
       };
       return _this;
     }
-    /**
-     * Get the width of the container and assign the width.
-     * @private
-     */
-
-
-    _createClass(ResultClass, [{
+    _inherits(ResultClass, _React$Component);
+    return _createClass(ResultClass, [{
       key: "componentDidMount",
       value: function componentDidMount() {
         this._onResize();
-
         this.cancelSubscription = subscribeToDebouncedResize(this._onResize);
       }
     }, {
@@ -210,21 +177,17 @@ function makeFlexible(Component, isWidthFlexible, isHeightFlexible) {
       key: "render",
       value: function render() {
         var _this2 = this;
-
         var _this$state = this.state,
-            height = _this$state.height,
-            width = _this$state.width;
-
+          height = _this$state.height,
+          width = _this$state.width;
         var props = _objectSpread(_objectSpread({}, this.props), {}, {
           animation: height === null && width === null ? null : this.props.animation
         });
-
         var updatedDimensions = _objectSpread(_objectSpread({}, isHeightFlexible ? {
           height: height
         } : {}), isWidthFlexible ? {
           width: width
         } : {});
-
         return /*#__PURE__*/_react["default"].createElement("div", {
           ref: function ref(_ref) {
             return _this2[CONTAINER_REF] = _ref;
@@ -235,29 +198,29 @@ function makeFlexible(Component, isWidthFlexible, isHeightFlexible) {
           }
         }, this.state.height === null || this.state.width === null ? null : /*#__PURE__*/_react["default"].createElement(Component, _extends({}, updatedDimensions, props)));
       }
+    }], [{
+      key: "propTypes",
+      get: function get() {
+        var _Component$propTypes = Component.propTypes,
+          height = _Component$propTypes.height,
+          width = _Component$propTypes.width,
+          otherPropTypes = _objectWithoutProperties(_Component$propTypes, _excluded); // eslint-disable-line no-unused-vars
+        return otherPropTypes;
+      }
     }]);
-
-    return ResultClass;
-  }(_react["default"].Component), _temp);
+  }(_react["default"].Component);
   ResultClass.displayName = "Flexible".concat(getDisplayName(Component));
   return ResultClass;
 }
-
 function makeHeightFlexible(component) {
   return makeFlexible(component, false, true);
 }
-
 function makeVisFlexible(component) {
   return makeFlexible(component, true, true);
 }
-
 function makeWidthFlexible(component) {
   return makeFlexible(component, true, false);
 }
-
-var FlexibleWidthXYPlot = makeWidthFlexible(_xyPlot["default"]);
-exports.FlexibleWidthXYPlot = FlexibleWidthXYPlot;
-var FlexibleHeightXYPlot = makeHeightFlexible(_xyPlot["default"]);
-exports.FlexibleHeightXYPlot = FlexibleHeightXYPlot;
-var FlexibleXYPlot = makeVisFlexible(_xyPlot["default"]);
-exports.FlexibleXYPlot = FlexibleXYPlot;
+var FlexibleWidthXYPlot = exports.FlexibleWidthXYPlot = makeWidthFlexible(_xyPlot["default"]);
+var FlexibleHeightXYPlot = exports.FlexibleHeightXYPlot = makeHeightFlexible(_xyPlot["default"]);
+var FlexibleXYPlot = exports.FlexibleXYPlot = makeVisFlexible(_xyPlot["default"]);

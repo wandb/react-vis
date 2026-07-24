@@ -32,21 +32,17 @@ const propTypes = {
   searchFn: PropTypes.func
 };
 
-const defaultProps = {
-  className: '',
-  searchText: '',
-  searchFn: (items, s) =>
-    items.filter(
-      item =>
-        String(item.title || item)
-          .toLowerCase()
-          .indexOf(s) !== -1
-    )
-};
+const defaultSearchFn = (items, s) =>
+  items.filter(
+    item =>
+      String(item.title || item)
+        .toLowerCase()
+        .indexOf(s) !== -1
+  );
 
 function SearchableDiscreteColorLegend(props) {
   const {
-    className,
+    className = '',
     colors,
     height,
     items,
@@ -55,9 +51,9 @@ function SearchableDiscreteColorLegend(props) {
     onItemMouseLeave,
     onSearchChange,
     orientation,
-    searchFn,
+    searchFn = defaultSearchFn,
     searchPlaceholder,
-    searchText,
+    searchText = '',
     width
   } = props;
   const onChange = onSearchChange
@@ -93,7 +89,6 @@ function SearchableDiscreteColorLegend(props) {
 }
 
 SearchableDiscreteColorLegend.propTypes = propTypes;
-SearchableDiscreteColorLegend.defaultProps = defaultProps;
 SearchableDiscreteColorLegend.displayName = 'SearchableDiscreteColorLegend';
 
 export default SearchableDiscreteColorLegend;

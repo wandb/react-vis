@@ -32,18 +32,12 @@ const propTypes = {
   direction: PropTypes.oneOf([VERTICAL])
 };
 
-const defaultProps = {
-  direction: VERTICAL,
-  attr: 'x'
-};
-
-function VerticalGridLines(props) {
-  return <GridLines {...props} />;
+function VerticalGridLines({direction = VERTICAL, attr = 'x', ...rest}) {
+  return <GridLines {...rest} direction={direction} attr={attr} />;
 }
 
 VerticalGridLines.displayName = 'VerticalGridLines';
 VerticalGridLines.propTypes = propTypes;
-VerticalGridLines.defaultProps = defaultProps;
 VerticalGridLines.requiresSVG = true;
 
 export default VerticalGridLines;

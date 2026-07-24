@@ -4,17 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
 var _react = _interopRequireDefault(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _theme = require("../theme");
-
 var _stylingUtils = require("../utils/styling-utils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 // Copyright (c) 2016 - 2017 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -34,6 +28,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+
 var propTypes = {
   className: _propTypes["default"].string,
   height: _propTypes["default"].number,
@@ -45,28 +40,23 @@ var propTypes = {
   startTitle: _propTypes["default"].oneOfType([_propTypes["default"].number, _propTypes["default"].string]).isRequired,
   width: _propTypes["default"].number
 };
-var defaultProps = {
-  className: '',
-  startColor: _theme.CONTINUOUS_COLOR_RANGE[0],
-  endColor: _theme.CONTINUOUS_COLOR_RANGE[1]
-};
-
 function ContinuousColorLegend(_ref) {
-  var startColor = _ref.startColor,
-      midColor = _ref.midColor,
-      endColor = _ref.endColor,
-      startTitle = _ref.startTitle,
-      midTitle = _ref.midTitle,
-      endTitle = _ref.endTitle,
-      height = _ref.height,
-      width = _ref.width,
-      className = _ref.className;
+  var _ref$startColor = _ref.startColor,
+    startColor = _ref$startColor === void 0 ? _theme.CONTINUOUS_COLOR_RANGE[0] : _ref$startColor,
+    midColor = _ref.midColor,
+    _ref$endColor = _ref.endColor,
+    endColor = _ref$endColor === void 0 ? _theme.CONTINUOUS_COLOR_RANGE[1] : _ref$endColor,
+    startTitle = _ref.startTitle,
+    midTitle = _ref.midTitle,
+    endTitle = _ref.endTitle,
+    height = _ref.height,
+    width = _ref.width,
+    _ref$className = _ref.className,
+    className = _ref$className === void 0 ? '' : _ref$className;
   var colors = [startColor];
-
   if (midColor) {
     colors.push(midColor);
   }
-
   colors.push(endColor);
   return /*#__PURE__*/_react["default"].createElement("div", {
     className: (0, _stylingUtils.getCombinedClassName)('rv-continuous-color-legend', className),
@@ -89,9 +79,6 @@ function ContinuousColorLegend(_ref) {
     className: "rv-legend-titles__center"
   }, midTitle) : null));
 }
-
 ContinuousColorLegend.displayName = 'ContinuousColorLegend';
 ContinuousColorLegend.propTypes = propTypes;
-ContinuousColorLegend.defaultProps = defaultProps;
-var _default = ContinuousColorLegend;
-exports["default"] = _default;
+var _default = exports["default"] = ContinuousColorLegend;

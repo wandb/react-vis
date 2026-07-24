@@ -28,9 +28,6 @@ import {ORIENTATION} from 'utils/axis-utils';
 const ADJUSTMENT_FOR_TEXT_SIZE = 16;
 const MARGIN = 6;
 const {LEFT, RIGHT, TOP, BOTTOM} = ORIENTATION;
-const defaultProps = {
-  position: 'end'
-};
 
 /**
  * Compute transformations, keyed by orientation
@@ -129,7 +126,14 @@ const propTypes = {
   title: PropTypes.string.isRequired
 };
 
-function AxisTitle({orientation, position, width, height, style, title}) {
+function AxisTitle({
+  orientation,
+  position = 'end',
+  width,
+  height,
+  style,
+  title
+}) {
   const outerGroupTranslateX = orientation === LEFT ? width : 0;
   const outerGroupTranslateY = orientation === TOP ? height : 0;
   const outerGroupTransform = `translate(${outerGroupTranslateX}, ${outerGroupTranslateY})`;
@@ -149,5 +153,4 @@ function AxisTitle({orientation, position, width, height, style, title}) {
 
 AxisTitle.displayName = 'AxisTitle';
 AxisTitle.propTypes = propTypes;
-AxisTitle.defaultProps = defaultProps;
 export default AxisTitle;

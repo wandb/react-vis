@@ -4,15 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
 var _react = _interopRequireDefault(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _stylingUtils = require("../utils/styling-utils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 // Copyright (c) 2016 - 2017 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -32,22 +27,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-var predefinedClassName = 'rv-gradient-defs';
 
+var predefinedClassName = 'rv-gradient-defs';
 function GradientDefs(props) {
-  var className = props.className;
+  var _props$className = props.className,
+    className = _props$className === void 0 ? '' : _props$className;
   return /*#__PURE__*/_react["default"].createElement("defs", {
     className: (0, _stylingUtils.getCombinedClassName)(predefinedClassName, className)
   }, props.children);
 }
-
 GradientDefs.displayName = 'GradientDefs';
 GradientDefs.requiresSVG = true;
 GradientDefs.propTypes = {
   className: _propTypes["default"].string
 };
-GradientDefs.defaultProps = {
-  className: ''
-};
-var _default = GradientDefs;
-exports["default"] = _default;
+var _default = exports["default"] = GradientDefs;

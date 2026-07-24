@@ -123,21 +123,40 @@ function buildLabels(mappedData, accessors) {
 
 const NOOP = () => {};
 
-function Sunburst(props) {
-  const {
+function Sunburst({
+  getAngle = d => d.angle,
+  getAngle0 = d => d.angle0,
+  animation,
+  className = '',
+  children,
+  colorType = 'literal',
+  data,
+  getColor = d => d.color,
+  height,
+  hideRootNode = false,
+  getLabel = d => d.label,
+  width,
+  getSize = d => d.size,
+  padAngle = 0,
+  ...restProps
+}) {
+  const props = {
     getAngle,
     getAngle0,
     animation,
     className,
     children,
+    colorType,
     data,
+    getColor,
     height,
     hideRootNode,
     getLabel,
     width,
     getSize,
-    colorType
-  } = props;
+    padAngle,
+    ...restProps
+  };
   const mappedData = getNodesToRender({
     data,
     height,
@@ -216,16 +235,4 @@ Sunburst.propTypes = {
   width: PropTypes.number.isRequired,
   padAngle: PropTypes.oneOfType([PropTypes.func, PropTypes.number])
 };
-Sunburst.defaultProps = {
-  getAngle: d => d.angle,
-  getAngle0: d => d.angle0,
-  className: '',
-  colorType: 'literal',
-  getColor: d => d.color,
-  hideRootNode: false,
-  getLabel: d => d.label,
-  getSize: d => d.size,
-  padAngle: 0
-};
-
 export default Sunburst;

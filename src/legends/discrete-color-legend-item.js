@@ -30,9 +30,9 @@ const STROKE_STYLES = {
 function DiscreteColorLegendItem({
   color,
   strokeDasharray,
-  strokeStyle,
+  strokeStyle = 'solid',
   strokeWidth,
-  disabled,
+  disabled = false,
   onClick,
   orientation,
   onMouseEnter,
@@ -82,10 +82,6 @@ DiscreteColorLegendItem.propTypes = {
   strokeDasharray: PropTypes.string,
   strokeWidth: PropTypes.number,
   strokeStyle: PropTypes.oneOf(Object.keys(STROKE_STYLES))
-};
-DiscreteColorLegendItem.defaultProps = {
-  disabled: false,
-  strokeStyle: 'solid'
 };
 DiscreteColorLegendItem.displayName = 'DiscreteColorLegendItem';
 

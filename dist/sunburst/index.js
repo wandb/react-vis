@@ -4,39 +4,48 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
 var _react = _interopRequireDefault(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _d3Hierarchy = require("d3-hierarchy");
-
 var _d3Scale = require("d3-scale");
-
 var _animation = require("../animation");
-
 var _labelSeries = _interopRequireDefault(require("../plot/series/label-series"));
-
 var _arcSeries = _interopRequireDefault(require("../plot/series/arc-series"));
-
 var _xyPlot = _interopRequireDefault(require("../plot/xy-plot"));
-
 var _seriesUtils = require("../utils/series-utils");
-
 var _chartUtils = require("../utils/chart-utils");
-
 var _stylingUtils = require("../utils/styling-utils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+var _excluded = ["getAngle", "getAngle0", "animation", "className", "children", "colorType", "data", "getColor", "height", "hideRootNode", "getLabel", "width", "getSize", "padAngle"];
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i = _objectWithoutPropertiesLoose(e, t); if (Object.getOwnPropertySymbols) { var n = Object.getOwnPropertySymbols(e); for (r = 0; r < n.length; r++) o = n[r], -1 === t.indexOf(o) && {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]); } return i; }
+function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (-1 !== e.indexOf(n)) continue; t[n] = r[n]; } return t; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); } // Copyright (c) 2016 - 2017 Uber Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 var predefinedClassName = 'rv-sunburst';
 var LISTENERS_TO_OVERWRITE = ['onValueMouseOver', 'onValueMouseOut', 'onValueClick', 'onValueRightClick', 'onSeriesMouseOver', 'onSeriesMouseOut', 'onSeriesClick', 'onSeriesRightClick'];
+
 /**
  * Create the list of nodes to render.
  * @param {Object} props
@@ -47,13 +56,12 @@ var LISTENERS_TO_OVERWRITE = ['onValueMouseOver', 'onValueMouseOut', 'onValueCli
    props.getSize {function} - accessor for the size
  * @returns {Array} Array of nodes.
  */
-
 function getNodesToRender(_ref) {
   var data = _ref.data,
-      height = _ref.height,
-      hideRootNode = _ref.hideRootNode,
-      width = _ref.width,
-      getSize = _ref.getSize;
+    height = _ref.height,
+    hideRootNode = _ref.hideRootNode,
+    width = _ref.width,
+    getSize = _ref.getSize;
   var partitionFunction = (0, _d3Hierarchy.partition)();
   var structuredInput = (0, _d3Hierarchy.hierarchy)(data).sum(getSize);
   var radius = Math.min(width, height) / 2 - 10;
@@ -63,7 +71,6 @@ function getNodesToRender(_ref) {
     if (hideRootNode && index === 0) {
       return res;
     }
-
     return res.concat([_objectSpread({
       angle0: Math.max(0, Math.min(2 * Math.PI, x(cell.x0))),
       angle: Math.max(0, Math.min(2 * Math.PI, x(cell.x1))),
@@ -74,6 +81,7 @@ function getNodesToRender(_ref) {
     }, cell.data)]);
   }, []);
 }
+
 /**
  * Convert arc nodes into label rows.
  * Important to use mappedData rather than regular data, bc it is already unrolled
@@ -81,13 +89,11 @@ function getNodesToRender(_ref) {
  * @param {Object} accessors - object of accessors
  * @returns {Array} array of node for rendering as labels
  */
-
-
 function buildLabels(mappedData, accessors) {
   var getAngle = accessors.getAngle,
-      getAngle0 = accessors.getAngle0,
-      getLabel = accessors.getLabel,
-      getRadius0 = accessors.getRadius0;
+    getAngle0 = accessors.getAngle0,
+    getLabel = accessors.getLabel,
+    getRadius0 = accessors.getRadius0;
   return mappedData.filter(getLabel).map(function (row) {
     var truedAngle = -1 * getAngle(row) + Math.PI / 2;
     var truedAngle0 = -1 * getAngle0(row) + Math.PI / 2;
@@ -107,22 +113,58 @@ function buildLabels(mappedData, accessors) {
     });
   });
 }
-
 var NOOP = function NOOP() {};
-
-function Sunburst(props) {
-  var getAngle = props.getAngle,
-      getAngle0 = props.getAngle0,
-      animation = props.animation,
-      className = props.className,
-      children = props.children,
-      data = props.data,
-      height = props.height,
-      hideRootNode = props.hideRootNode,
-      getLabel = props.getLabel,
-      width = props.width,
-      getSize = props.getSize,
-      colorType = props.colorType;
+function Sunburst(_ref2) {
+  var _ref2$getAngle = _ref2.getAngle,
+    getAngle = _ref2$getAngle === void 0 ? function (d) {
+      return d.angle;
+    } : _ref2$getAngle,
+    _ref2$getAngle2 = _ref2.getAngle0,
+    getAngle0 = _ref2$getAngle2 === void 0 ? function (d) {
+      return d.angle0;
+    } : _ref2$getAngle2,
+    animation = _ref2.animation,
+    _ref2$className = _ref2.className,
+    className = _ref2$className === void 0 ? '' : _ref2$className,
+    children = _ref2.children,
+    _ref2$colorType = _ref2.colorType,
+    colorType = _ref2$colorType === void 0 ? 'literal' : _ref2$colorType,
+    data = _ref2.data,
+    _ref2$getColor = _ref2.getColor,
+    getColor = _ref2$getColor === void 0 ? function (d) {
+      return d.color;
+    } : _ref2$getColor,
+    height = _ref2.height,
+    _ref2$hideRootNode = _ref2.hideRootNode,
+    hideRootNode = _ref2$hideRootNode === void 0 ? false : _ref2$hideRootNode,
+    _ref2$getLabel = _ref2.getLabel,
+    getLabel = _ref2$getLabel === void 0 ? function (d) {
+      return d.label;
+    } : _ref2$getLabel,
+    width = _ref2.width,
+    _ref2$getSize = _ref2.getSize,
+    getSize = _ref2$getSize === void 0 ? function (d) {
+      return d.size;
+    } : _ref2$getSize,
+    _ref2$padAngle = _ref2.padAngle,
+    padAngle = _ref2$padAngle === void 0 ? 0 : _ref2$padAngle,
+    restProps = _objectWithoutProperties(_ref2, _excluded);
+  var props = _objectSpread({
+    getAngle: getAngle,
+    getAngle0: getAngle0,
+    animation: animation,
+    className: className,
+    children: children,
+    colorType: colorType,
+    data: data,
+    getColor: getColor,
+    height: height,
+    hideRootNode: hideRootNode,
+    getLabel: getLabel,
+    width: width,
+    getSize: getSize,
+    padAngle: padAngle
+  }, restProps);
   var mappedData = getNodesToRender({
     data: data,
     height: height,
@@ -140,13 +182,11 @@ function Sunburst(props) {
       return d.radius0;
     }
   });
-
   var hofBuilder = function hofBuilder(f) {
     return function (e, i) {
       return f ? f(mappedData[e.index], i) : NOOP;
     };
   };
-
   return /*#__PURE__*/_react["default"].createElement(_xyPlot["default"], {
     height: height,
     hasTreeStructure: true,
@@ -179,7 +219,6 @@ function Sunburst(props) {
     getLabel: getLabel
   }), children);
 }
-
 Sunburst.displayName = 'Sunburst';
 Sunburst.propTypes = {
   animation: _animation.AnimationPropType,
@@ -198,26 +237,4 @@ Sunburst.propTypes = {
   width: _propTypes["default"].number.isRequired,
   padAngle: _propTypes["default"].oneOfType([_propTypes["default"].func, _propTypes["default"].number])
 };
-Sunburst.defaultProps = {
-  getAngle: function getAngle(d) {
-    return d.angle;
-  },
-  getAngle0: function getAngle0(d) {
-    return d.angle0;
-  },
-  className: '',
-  colorType: 'literal',
-  getColor: function getColor(d) {
-    return d.color;
-  },
-  hideRootNode: false,
-  getLabel: function getLabel(d) {
-    return d.label;
-  },
-  getSize: function getSize(d) {
-    return d.size;
-  },
-  padAngle: 0
-};
-var _default = Sunburst;
-exports["default"] = _default;
+var _default = exports["default"] = Sunburst;

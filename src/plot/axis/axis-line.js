@@ -33,11 +33,7 @@ const propTypes = {
   width: PropTypes.number.isRequired
 };
 
-const defaultProps = {
-  style: {}
-};
-
-function AxisLine({orientation, width, height, style}) {
+function AxisLine({orientation, width, height, style = {}}) {
   let lineProps;
   if (orientation === LEFT) {
     lineProps = {
@@ -73,7 +69,6 @@ function AxisLine({orientation, width, height, style}) {
   );
 }
 
-AxisLine.defaultProps = defaultProps;
 AxisLine.displayName = 'AxisLine';
 AxisLine.propTypes = propTypes;
 

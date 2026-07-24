@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getCombinedClassName = getCombinedClassName;
-
 // Copyright (c) 2016 - 2019 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -31,11 +30,11 @@ exports.getCombinedClassName = getCombinedClassName;
  * @param {...string} classNames CSS class signatures.
  * @returns {string} Interpolated string containing all valid class names.
  */
+
 function getCombinedClassName() {
   for (var _len = arguments.length, classNames = new Array(_len), _key = 0; _key < _len; _key++) {
     classNames[_key] = arguments[_key];
   }
-
   return classNames.filter(function (cn) {
     return cn && typeof cn === 'string';
   }).join(' ');

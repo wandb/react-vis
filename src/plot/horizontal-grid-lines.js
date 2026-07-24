@@ -32,18 +32,12 @@ const propTypes = {
   direction: PropTypes.oneOf([HORIZONTAL])
 };
 
-const defaultProps = {
-  direction: HORIZONTAL,
-  attr: 'y'
-};
-
-function HorizontalGridLines(props) {
-  return <GridLines {...props} />;
+function HorizontalGridLines({direction = HORIZONTAL, attr = 'y', ...rest}) {
+  return <GridLines {...rest} direction={direction} attr={attr} />;
 }
 
 HorizontalGridLines.displayName = 'HorizontalGridLines';
 HorizontalGridLines.propTypes = propTypes;
-HorizontalGridLines.defaultProps = defaultProps;
 HorizontalGridLines.requiresSVG = true;
 
 export default HorizontalGridLines;

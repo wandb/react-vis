@@ -4,52 +4,49 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
 var _react = _interopRequireWildcard(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _d3Interpolate = require("d3-interpolate");
-
 var _animation = require("../../animation");
-
 var _seriesUtils = require("../../utils/series-utils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, "default": e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); } // Copyright (c) 2017 Uber Technologies, Inc.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 var MAX_DRAWS = 30;
+
 /**
  * Draw loop draws each of the layers until it should draw more
  * @param {CanvasContext} ctx - the context where the drawing will take place
@@ -57,25 +54,22 @@ var MAX_DRAWS = 30;
  * @param {Number} width - width of the canvas
  * @param {Array} layers - the layer objects to render
  */
-
 function engageDrawLoop(ctx, props, layers) {
-  var drawIteration = 0; // using setInterval because request animation frame goes too fast
-
+  var drawIteration = 0;
+  // using setInterval because request animation frame goes too fast
   var drawCycle = setInterval(function () {
     if (!ctx) {
       clearInterval(drawCycle);
       return;
     }
-
     drawLayers(ctx, props, layers, drawIteration);
-
     if (drawIteration > MAX_DRAWS) {
       clearInterval(drawCycle);
     }
-
     drawIteration += 1;
   }, 1);
 }
+
 /**
  * Loops across each of the layers to be drawn and draws them
  * @param {CanvasContext} ctx - the context where the drawing will take place
@@ -84,24 +78,24 @@ function engageDrawLoop(ctx, props, layers) {
  * @param {Array} layers - the layer objects to render
  * @param {Number} drawIteration - width of the canvas
  */
-
-
 function drawLayers(ctx, props, layers, drawIteration) {
   var width = props.width,
-      height = props.height,
-      pixelRatio = props.pixelRatio;
+    height = props.height,
+    pixelRatio = props.pixelRatio;
   ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
   ctx.clearRect(0, 0, width, height);
   layers.forEach(function (layer) {
     var interpolator = layer.interpolator,
-        newProps = layer.newProps,
-        animation = layer.animation; // return an empty object if dont need to be animating
-
+      newProps = layer.newProps,
+      animation = layer.animation;
+    // return an empty object if dont need to be animating
     var interpolatedProps = animation ? interpolator ? interpolator(drawIteration / MAX_DRAWS) : interpolator : function () {
       return {};
     };
     layer.renderLayer(_objectSpread(_objectSpread({}, newProps), interpolatedProps), ctx);
-  }); // NOTE: Re-enable or change layering in canvas/svg hybrids
+  });
+
+  // NOTE: Re-enable or change layering in canvas/svg hybrids
   // We have to perform clipping gradients/borders
   // In the canvas renderer because the canvas layer is always on top of the svg.
   // In the future the renderer could be change to allow mixed layering between svg
@@ -127,15 +121,20 @@ function drawLayers(ctx, props, layers, drawIteration) {
   //   borderCanvas.width = width;
   //   borderCanvas.height = height;
   //   const borderCtx = borderCanvas.getContext('2d');
+
   //   // left
   //   // borderCtx.fillStyle = 'rgba(0,0,0,0)';
   //   borderCtx.fillRect(0, 0, marginLeft, height);
+
   //   // right
   //   borderCtx.fillRect(width, 0, -marginRight, height);
+
   //   // top
   //   borderCtx.fillRect(0, 0, width, marginTop);
+
   //   // bottom
   //   borderCtx.fillRect(0, height, width, -marginBottom);
+
   //   NOTE: Gradient code for later
   //   const grad = ctx.createLinearGradient(
   //     0,
@@ -162,6 +161,7 @@ function drawLayers(ctx, props, layers, drawIteration) {
   //   };
   // }
 }
+
 /**
  * Build an array of layer of objects the contain the method for drawing each series
  * as well as an interpolar (specifically a d3-interpolate interpolator)
@@ -169,8 +169,6 @@ function drawLayers(ctx, props, layers, drawIteration) {
  * @param {Object} oldChildren the old children to be rendered.
  * @returns {Array} Object for rendering
  */
-
-
 function buildLayers(newChildren, oldChildren) {
   return newChildren.map(function (child, index) {
     var oldProps = oldChildren[index] ? oldChildren[index].props : {};
@@ -190,40 +188,31 @@ function buildLayers(newChildren, oldChildren) {
     };
   });
 }
-
 var CanvasWrapper = /*#__PURE__*/function (_Component) {
-  _inherits(CanvasWrapper, _Component);
-
-  var _super = _createSuper(CanvasWrapper);
-
   function CanvasWrapper() {
     _classCallCheck(this, CanvasWrapper);
-
-    return _super.apply(this, arguments);
+    return _callSuper(this, CanvasWrapper, arguments);
   }
-
-  _createClass(CanvasWrapper, [{
+  _inherits(CanvasWrapper, _Component);
+  return _createClass(CanvasWrapper, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var ctx = this.canvas.getContext('2d');
-
       if (!ctx) {
         return;
       }
-
       this.drawChildren(null, this.props, ctx);
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(oldProps) {
       var ctx = this.canvas.getContext('2d');
-
       if (!ctx) {
         return;
       }
-
       this.drawChildren(oldProps, this.props, this.canvas.getContext('2d'));
     }
+
     /**
      * Check that we can and should be animating, then kick off animations as apporpriate
      * @param {Object} newProps the new props to be interpolated to
@@ -231,55 +220,48 @@ var CanvasWrapper = /*#__PURE__*/function (_Component) {
      * @param {DomRef} ctx the canvas context to be drawn on.
      * @returns {Array} Object for rendering
      */
-
   }, {
     key: "drawChildren",
     value: function drawChildren(oldProps, newProps, ctx) {
       var children = newProps.children,
-          innerHeight = newProps.innerHeight,
-          innerWidth = newProps.innerWidth,
-          marginBottom = newProps.marginBottom,
-          marginLeft = newProps.marginLeft,
-          marginRight = newProps.marginRight,
-          marginTop = newProps.marginTop;
-
+        innerHeight = newProps.innerHeight,
+        innerWidth = newProps.innerWidth,
+        marginBottom = newProps.marginBottom,
+        marginLeft = newProps.marginLeft,
+        marginRight = newProps.marginRight,
+        marginTop = newProps.marginTop;
       if (!ctx) {
         return;
       }
-
       var childrenShouldAnimate = children.find(function (child) {
         return child.props.animation;
       });
       var height = innerHeight + marginTop + marginBottom;
       var width = innerWidth + marginLeft + marginRight;
-
       var renderProps = _objectSpread(_objectSpread({}, newProps), {}, {
         height: height,
         width: width
       });
-
-      var layers = buildLayers(newProps.children, oldProps ? oldProps.children : []); // if we don't need to be animating, dont! cut short
-
+      var layers = buildLayers(newProps.children, oldProps ? oldProps.children : []);
+      // if we don't need to be animating, dont! cut short
       if (!childrenShouldAnimate) {
         drawLayers(ctx, renderProps, layers);
         return;
       }
-
       engageDrawLoop(ctx, renderProps, layers);
     }
   }, {
     key: "render",
     value: function render() {
       var _this = this;
-
       var _this$props = this.props,
-          innerHeight = _this$props.innerHeight,
-          innerWidth = _this$props.innerWidth,
-          marginBottom = _this$props.marginBottom,
-          marginLeft = _this$props.marginLeft,
-          marginRight = _this$props.marginRight,
-          marginTop = _this$props.marginTop,
-          pixelRatio = _this$props.pixelRatio;
+        innerHeight = _this$props.innerHeight,
+        innerWidth = _this$props.innerWidth,
+        marginBottom = _this$props.marginBottom,
+        marginLeft = _this$props.marginLeft,
+        marginRight = _this$props.marginRight,
+        marginTop = _this$props.marginTop,
+        pixelRatio = _this$props.pixelRatio;
       var height = innerHeight + marginTop + marginBottom;
       var width = innerWidth + marginLeft + marginRight;
       return /*#__PURE__*/_react["default"].createElement("div", {
@@ -309,10 +291,7 @@ var CanvasWrapper = /*#__PURE__*/function (_Component) {
       };
     }
   }]);
-
-  return CanvasWrapper;
 }(_react.Component);
-
 CanvasWrapper.displayName = 'CanvasWrapper';
 CanvasWrapper.propTypes = {
   marginBottom: _propTypes["default"].number.isRequired,
@@ -323,5 +302,4 @@ CanvasWrapper.propTypes = {
   innerWidth: _propTypes["default"].number.isRequired,
   pixelRatio: _propTypes["default"].number.isRequired
 };
-var _default = CanvasWrapper;
-exports["default"] = _default;
+var _default = exports["default"] = CanvasWrapper;

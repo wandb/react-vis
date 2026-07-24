@@ -100,15 +100,47 @@ function getMaxRadius(width, height) {
   return Math.min(width, height) / 2 - DEFAULT_RADIUS_MARGIN;
 }
 
-function RadialChart(props) {
-  const {
+function RadialChart({
+  animation,
+  className = '',
+  children,
+  colorType = 'category',
+  colorRange = DISCRETE_COLOR_RANGE,
+  data,
+  getAngle = d => d.angle,
+  getAngle0 = d => d.angle0,
+  getLabel = d => d.label,
+  getRadius = d => d.radius,
+  getRadius0 = d => d.radius0,
+  getSubLabel = d => d.subLabel,
+  height,
+  hideRootNode,
+  innerRadius,
+  labelsAboveChildren,
+  labelsRadiusMultiplier,
+  labelsStyle,
+  margin,
+  onMouseLeave,
+  onMouseEnter,
+  padAngle = 0,
+  radius,
+  showLabels,
+  style,
+  width,
+  ...restProps
+}) {
+  const props = {
     animation,
     className,
     children,
     colorType,
+    colorRange,
     data,
     getAngle,
+    getAngle0,
     getLabel,
+    getRadius,
+    getRadius0,
     getSubLabel,
     height,
     hideRootNode,
@@ -119,11 +151,13 @@ function RadialChart(props) {
     margin,
     onMouseLeave,
     onMouseEnter,
+    padAngle,
     radius,
     showLabels,
     style,
-    width
-  } = props;
+    width,
+    ...restProps
+  };
   const mappedData = getWedgesToRender({
     data,
     height,
@@ -216,17 +250,4 @@ RadialChart.propTypes = {
   subLabel: PropTypes.func,
   width: PropTypes.number.isRequired
 };
-RadialChart.defaultProps = {
-  className: '',
-  colorType: 'category',
-  colorRange: DISCRETE_COLOR_RANGE,
-  padAngle: 0,
-  getAngle: d => d.angle,
-  getAngle0: d => d.angle0,
-  getRadius: d => d.radius,
-  getRadius0: d => d.radius0,
-  getLabel: d => d.label,
-  getSubLabel: d => d.subLabel
-};
-
 export default RadialChart;
