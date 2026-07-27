@@ -33,12 +33,14 @@ const MAX_DRAWS = 30;
  * @param {Number} height - height of the canvas
  * @param {Number} width - width of the canvas
  * @param {Array} layers - the layer objects to render
+ * @returns {Number} the interval handle, so the loop can be cancelled
  */
 function engageDrawLoop(ctx, props, layers) {
   let drawIteration = 0;
   // using setInterval because request animation frame goes too fast
   const drawCycle = setInterval(() => {
-    if (!ctx) {
+    // the canvas can be unmounted (or replaced) while the loop is running
+    if (!ctx || (ctx.canvas && ctx.canvas.isConnected === false)) {
       clearInterval(drawCycle);
       return;
     }
@@ -48,6 +50,7 @@ function engageDrawLoop(ctx, props, layers) {
     }
     drawIteration += 1;
   }, 1);
+  return drawCycle;
 }
 
 /**
@@ -200,7 +203,18 @@ class CanvasWrapper extends Component {
       return;
     }
 
-    this.drawChildren(oldProps, this.props, this.canvas.getContext('2d'));
+    this.drawChildren(oldProps, this.props, ctx);
+  }
+
+  componentWillUnmount() {
+    this._cancelDrawLoop();
+  }
+
+  _cancelDrawLoop() {
+    if (this.drawCycle !== undefined) {
+      clearInterval(this.drawCycle);
+      this.drawCycle = undefined;
+    }
   }
 
   /**
@@ -239,13 +253,15 @@ class CanvasWrapper extends Component {
       newProps.children,
       oldProps ? oldProps.children : []
     );
+    // a draw loop from a previous update must not keep painting stale layers
+    this._cancelDrawLoop();
     // if we don't need to be animating, dont! cut short
     if (!childrenShouldAnimate) {
       drawLayers(ctx, renderProps, layers);
       return;
     }
 
-    engageDrawLoop(ctx, renderProps, layers);
+    this.drawCycle = engageDrawLoop(ctx, renderProps, layers);
   }
 
   render() {
