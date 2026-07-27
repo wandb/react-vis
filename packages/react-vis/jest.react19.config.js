@@ -8,5 +8,5 @@ module.exports = {
     '^.+\\.js$': path.resolve(__dirname, './jestBabelTransform.js')
   },
   setupFiles: ['./jest.polyfills.js'],
-  testMatch: ['**/tests/react19-smoke.test.js']
+  testMatch: ['**/tests/react19-*.test.js']
 };
